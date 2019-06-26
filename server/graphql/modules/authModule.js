@@ -41,40 +41,37 @@ module.exports = {
             .then(async user => {
               if (user.length) {
                 const hashedPassword = user[0].password;
-                bcrypt.compare(password, hashedPassword, (err, res) => {
-                  if (err) {
-                    return {
-                      isSuccess: false,
-                      message: err.message
-                    };
-                  }
+                const match = await bcrypt.compare(password, hashedPassword);
+                if (match) {
                   const { user_id, email, is_admin } = user[0];
-                  jwt.sign(
+                  const token = await jwt.sign(
                     {
                       email,
                       is_admin,
                       user_id
                     },
                     config.PRIVATE_KEY,
-                    { expiresIn: '1h' },
-                    (err, token) => {
-                      if (err) {
-                        return {
-                          isSuccess: false,
-                          message: err.message
-                        };
-                      }
-                      return {
-                        user_id,
-                        email,
-                        is_admin,
-                        token,
-                        isSuccess: true,
-                        message: 'Welcome Back!'
-                      };
-                    }
+                    { expiresIn: '1h' }
                   );
-                });
+                  if (token) {
+                    return {
+                      user_id,
+                      email,
+                      is_admin,
+                      token,
+                      isSuccess: true,
+                      message: 'Welcome Back!'
+                    };
+                  }
+                  return {
+                    isSuccess: false,
+                    message: 'Unable to issue token'
+                  };
+                }
+                return {
+                  isSuccess: false,
+                  message: 'Email/Password Invalid'
+                };
               } else {
                 return {
                   isSuccess: false,
@@ -120,15 +117,33 @@ module.exports = {
                     return await knex('users')
                       .insert({ email, password: hash, is_admin }, [
                         'user_id',
-                        'is_admin'
+                        'is_admin',
+                        'email'
                       ])
-                      .then(res => {
-                        const { user_id, is_admin } = res[0];
+                      .then(async user => {
+                        const { user_id, is_admin, email } = user[0];
+                        const token = await jwt.sign(
+                          {
+                            email,
+                            is_admin,
+                            user_id
+                          },
+                          config.PRIVATE_KEY,
+                          { expiresIn: '1h' }
+                        );
+                        if (token) {
+                          resolve({
+                            user_id,
+                            email,
+                            is_admin,
+                            token,
+                            isSuccess: true,
+                            message: 'Account created successfully'
+                          });
+                        }
                         resolve({
-                          isSuccess: true,
-                          message: 'Account created successfully',
-                          user_id,
-                          is_admin
+                          isSuccess: false,
+                          message: 'Unable to issue token'
                         });
                       });
                   });

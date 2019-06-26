@@ -18,7 +18,22 @@ export const AUTH_SIGN_UP = gql`
       isSuccess
       message
       user_id
+      email
       is_admin
+      token
+    }
+  }
+`;
+
+export const AUTH_SIGN_IN = gql`
+  query AuthSignIn($email: String!, $password: String!) {
+    AuthSignIn(email: $email, password: $password) {
+      isSuccess
+      message
+      user_id
+      email
+      is_admin
+      token
     }
   }
 `;

@@ -10,7 +10,7 @@ import Card from '../../shared/Card';
 import Input from '../../shared/Input';
 import Button from '../../shared/Button';
 import useAuthForm from '../../hooks/useAuthForm';
-import { AUTH_SIGN_UP } from '../../graphql/mutations';
+import { AUTH_SIGN_UP, AUTH_SIGN_IN } from '../../graphql/auth';
 import './Auth.scss';
 
 const SignUpOptions = {
@@ -53,6 +53,7 @@ const Auth: React.FC<any> = ({ client }) => {
   );
 
   const onHandleSubmit = (values: any) => {
+    const { email, password } = values;
     if (isSignUp) {
       client
         .mutate({
@@ -62,8 +63,13 @@ const Auth: React.FC<any> = ({ client }) => {
           }
         })
         .then(({ data: { AuthSignUp } }: any) => {
-          const { isSuccess, message } = AuthSignUp;
+          const { isSuccess, message, token } = AuthSignUp;
           if (isSuccess) {
+            // TODO: Navigate to main page
+            window.localStorage.setItem('access-token', token);
+            toast.success(message, {
+              position: toast.POSITION.TOP_RIGHT
+            });
           } else {
             toast.error(message, {
               position: toast.POSITION.TOP_RIGHT
@@ -71,6 +77,28 @@ const Auth: React.FC<any> = ({ client }) => {
           }
         });
     } else {
+      client
+        .query({
+          query: AUTH_SIGN_IN,
+          variables: {
+            email,
+            password
+          }
+        })
+        .then(({ data: { AuthSignIn } }: any) => {
+          const { isSuccess, message, token } = AuthSignIn;
+          if (isSuccess) {
+            // TODO: Navigate to main page
+            window.localStorage.setItem('access-token', token);
+            toast.success(message, {
+              position: toast.POSITION.TOP_RIGHT
+            });
+          } else {
+            toast.error(message, {
+              position: toast.POSITION.TOP_RIGHT
+            });
+          }
+        });
     }
   };
 
