@@ -1,15 +1,8 @@
 const { makeExecutableSchema } = require('apollo-server');
 
-const UsersModule = require('./modules/usersModule');
+const AuthModule = require('./modules/authModule');
 
 module.exports = makeExecutableSchema({
-  typeDefs: [UsersModule.typeDefs],
-  resolvers: {
-    Query: {
-      ...UsersModule.Query
-    },
-    Mutation: {
-      ...UsersModule.Mutation
-    }
-  }
+  typeDefs: [AuthModule.typeDefs],
+  resolvers: AuthModule.resolvers
 });

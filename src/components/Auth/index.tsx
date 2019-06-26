@@ -4,12 +4,13 @@ import { faSignIn } from '@fortawesome/pro-regular-svg-icons';
 import * as yup from 'yup';
 import ReactTooltip from 'react-tooltip';
 import { withApollo } from 'react-apollo';
+import { toast } from 'react-toastify';
 
 import Card from '../../shared/Card';
 import Input from '../../shared/Input';
 import Button from '../../shared/Button';
 import useAuthForm from '../../hooks/useAuthForm';
-import { ADD_USER } from '../../graphql/mutations';
+import { AUTH_SIGN_UP } from '../../graphql/mutations';
 import './Auth.scss';
 
 const SignUpOptions = {
@@ -53,17 +54,23 @@ const Auth: React.FC<any> = ({ client }) => {
 
   const onHandleSubmit = (values: any) => {
     if (isSignUp) {
-      console.log('ADD USER', values);
       client
         .mutate({
-          mutation: ADD_USER,
+          mutation: AUTH_SIGN_UP,
           variables: {
             ...values
           }
         })
-        .then((data: any) => {
-          console.log(data, 'DATA');
+        .then(({ data: { AuthSignUp } }: any) => {
+          const { isSuccess, message } = AuthSignUp;
+          if (isSuccess) {
+          } else {
+            toast.error(message, {
+              position: toast.POSITION.TOP_RIGHT
+            });
+          }
         });
+    } else {
     }
   };
 

@@ -1,13 +1,13 @@
 import gql from 'graphql-tag';
 
-export const ADD_USER = gql`
-  mutation AddUser(
+export const AUTH_SIGN_UP = gql`
+  mutation AuthSignUp(
     $email: String!
     $password: String!
     $passwordConfirm: String!
     $isAdmin: Boolean
   ) {
-    AddUser(
+    AuthSignUp(
       user: {
         email: $email
         password: $password

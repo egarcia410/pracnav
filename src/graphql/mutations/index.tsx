@@ -1,1 +1,1 @@
-export { ADD_USER } from './users';
+export { AUTH_SIGN_UP } from './users';
