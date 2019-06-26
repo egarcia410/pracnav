@@ -1,0 +1,39 @@
+.btn {
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid transparent;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  line-height: 1;
+  // border-radius: 0.375rem;
+  border-radius: 2rem;
+  background-color: #3183c8;
+  color: white;
+  font-family: inherit;
+  outline: none;
+  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+  &:hover {
+    background-color: #2368a2;
+  }
+  &:active {
+    box-shadow: none;
+  }
+}
+
+.is-fluid {
+  width: 100%;
+}
+
+.is-plain {
+  border-radius: unset;
+  background-color: white;
+  color: #3183c8;
+  box-shadow: unset;
+  text-decoration: underline;
+  &:hover {
+    background-color: unset;
+    color: #2368a2;
+  }
+}

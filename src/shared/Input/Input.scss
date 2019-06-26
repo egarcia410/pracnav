@@ -1,0 +1,68 @@
+.input-root {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.input-field {
+  padding: 0.5rem 1rem;
+  padding-right: 30px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  border: 1px solid #becad6;
+  font-weight: 300;
+  border-radius: 0.375rem;
+  box-shadow: none;
+  outline: none;
+  &:hover {
+    border-color: #8fa4b8;
+  }
+  &:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #aad3f5;
+    box-shadow: 0 0.313rem 0.719rem rgba(0, 123, 255, 0.1),
+      0 0.156rem 0.125rem rgba(0, 0, 0, 0.06);
+  }
+  &.is-valid {
+    border-color: #8ad3cc;
+    box-shadow: 0 5px 11.5px rgba(23, 198, 113, 0.1);
+    &:hover {
+      border-color: #8ad3cc;
+    }
+    &:focus {
+      box-shadow: 0 5px 11.5px rgba(23, 198, 113, 0.1),
+        0 1px 1px 0.1rem rgba(23, 198, 113, 0.2);
+    }
+  }
+  &.is-invalid {
+    border-color: #fcb8b8;
+    box-shadow: 0 5px 11.5px rgba(196, 24, 60, 0.1);
+    &:hover {
+      border-color: #fcb8b8;
+    }
+    &:focus {
+      box-shadow: 0 5px 11.5px rgba(196, 24, 60, 0.1),
+        0 1px 1px 0.1rem rgba(196, 24, 60, 0.2);
+    }
+  }
+}
+
+.input-icon {
+  width: 1rem !important;
+  height: 1rem;
+  border-radius: 1rem;
+  padding: 3px;
+  margin-left: -27px;
+  &.is-valid {
+    background-color: #9ce2b6;
+    color: #4c9668;
+  }
+  &.is-invalid {
+    background-color: #fcb8b8;
+    color: #b35e5e;
+  }
+}

@@ -1,0 +1,21 @@
+.auth-root {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+}
+
+.auth-header {
+  font-size: large;
+  color: grey;
+}
+
+.auth-content {
+  margin: 20px 0;
+}
+
+.auth-footer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
