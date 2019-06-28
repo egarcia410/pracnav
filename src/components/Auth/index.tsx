@@ -66,7 +66,7 @@ const Auth: React.FC<any> = ({ client }) => {
           const { isSuccess, message, token } = AuthSignUp;
           if (isSuccess) {
             // TODO: Navigate to main page
-            window.localStorage.setItem('access-token', token);
+            localStorage.setItem('x-access-token', token);
             toast.success(message, {
               position: toast.POSITION.TOP_RIGHT
             });
@@ -89,7 +89,7 @@ const Auth: React.FC<any> = ({ client }) => {
           const { isSuccess, message, token } = AuthSignIn;
           if (isSuccess) {
             // TODO: Navigate to main page
-            window.localStorage.setItem('access-token', token);
+            localStorage.setItem('x-access-token', token);
             toast.success(message, {
               position: toast.POSITION.TOP_RIGHT
             });
