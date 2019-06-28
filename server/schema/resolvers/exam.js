@@ -3,17 +3,15 @@ const { AuthenticationError } = require('apollo-server');
 module.exports = {
   ExamQuery: {
     GenerateExam: async (_, { module_id }, { knex, user_id }) => {
-      console.log(user_id, 'USER ID');
       // if (!user_id) {
       //   throw new AuthenticationError('Must be logged in');
       // }
-      let module = await knex('modules')
+      let examModule = await knex('modules')
         .where({ module_id })
         .select(['passing_score', 'total_questions'])
         .reduce((acc, curr) => {
           return { ...acc, ...curr };
         }, {});
-      console.log(module, 'MODULE');
       let answeredQuestions = await knex('answered_questions')
         .where({
           user_id: 27,
@@ -23,30 +21,35 @@ module.exports = {
         .map(answ => {
           return answ.question_id;
         });
-      console.log(answeredQuestions, 'ANSWERED');
-      let questions = await knex('questions')
+      let qs = await knex('questions')
         .where({ module_id })
         .whereNotIn('question_id', answeredQuestions)
-        .limit(5)
+        .limit(2)
         .reduce(
           (acc, curr) => {
             return {
               ...acc,
-              questions: {
-                ...acc.questions,
-                [curr.question_id]: curr.question
-              },
-              questionIDs: [...acc.questionIDs, curr.question_id],
-              correctOptionIDs: [
-                ...acc.correctOptionIDs,
-                curr.correct_option_id
-              ]
+              questions: [...acc.questions, { ...curr }],
+              questionIDs: [...acc.questionIDs, curr.question_id]
             };
           },
-          { questions: {}, questionIDs: [], correctOptionIDs: [] }
+          { questions: [], questionIDs: [] }
         );
-      console.log(questions, 'QUESTIONS');
-      return { question: 1 };
+      const { questions, questionIDs } = qs;
+      let optns = await knex('options')
+        .whereIn('question_id', questionIDs)
+        .reduce((acc, curr) => {
+          let accOptions = acc[curr.question_id] ? acc[curr.question_id] : [];
+          return {
+            ...acc,
+            [curr.question_id]: [...accOptions, curr]
+          };
+        }, {});
+      let questionsWithOptions = questions.map(question => {
+        let options = optns[question.question_id];
+        return { ...question, options };
+      });
+      return { ...examModule, questions: questionsWithOptions };
     }
   },
   ExamMutation: {}
