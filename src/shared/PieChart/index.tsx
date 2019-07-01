@@ -1,25 +1,34 @@
 import React from 'react';
 import { ResponsivePie } from '@nivo/pie';
 
-const data = [
-  {
-    id: 'incorrect',
-    label: 'incorrect',
-    value: 300
-  },
-  {
-    id: 'unanswered',
-    label: 'unanswered',
-    value: 1000
-  },
-  {
-    id: 'correct',
-    label: 'correct',
-    value: 300
-  }
-];
+interface IPieChartProps {
+  totalQuestions: number;
+  correctCount: number;
+  incorrectCount: number;
+}
 
-const PieChart: React.FC = () => {
+const PieChart: React.FC<IPieChartProps> = ({
+  totalQuestions,
+  correctCount,
+  incorrectCount
+}) => {
+  const data = [
+    {
+      id: 'incorrect',
+      label: 'incorrect',
+      value: correctCount
+    },
+    {
+      id: 'unanswered',
+      label: 'unanswered',
+      value: totalQuestions - (correctCount + incorrectCount)
+    },
+    {
+      id: 'correct',
+      label: 'correct',
+      value: correctCount
+    }
+  ];
   return (
     <ResponsivePie
       data={data}

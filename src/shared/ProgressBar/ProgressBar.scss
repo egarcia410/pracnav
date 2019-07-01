@@ -1,0 +1,35 @@
+.progressBar {
+  height: 20px;
+  background-color: #e9e9e9;
+  border: 3px solid #dddce3;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.progress {
+  width: 100%;
+}
+
+.progress:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.progress-answered {
+  // background-color: #b76ac4;
+  background-color: #ffd1f1;
+}
+
+.progress-first {
+  border-radius: 20px 0 0 20px;
+}
+
+.progress-last {
+  border-radius: 0 20px 20px 0;
+}
+
+.progress-current {
+  border-bottom: 4px solid #b76ac4;
+  // background-color: #ffd1f1;
+}

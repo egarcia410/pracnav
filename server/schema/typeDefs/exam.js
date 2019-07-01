@@ -20,7 +20,7 @@ const ExamTypeDef = `
 `;
 
 const ExamTypeDefQuery = `
-  GenerateExam(module_id: Int!): Exam
+  GenerateExam(module_id: ID!): Exam
 `;
 const ExamTypeDefMutation = `
 `;

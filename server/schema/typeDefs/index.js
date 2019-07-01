@@ -10,17 +10,38 @@ const {
   ExamTypeDefMutation
 } = require('./exam');
 
-const TypeDefs = [AuthTypeDef, ExamTypeDef];
+const {
+  StatisticsTypeDef,
+  StatisticsTypeDefQuery,
+  StatisticsTypeDefMutation
+} = require('./statistics');
+
+const {
+  ExamModulesTypeDef,
+  ExamModulesTypeDefQuery,
+  ExamModulesTypeDefMutation
+} = require('./examModules');
+
+const TypeDefs = [
+  AuthTypeDef,
+  ExamTypeDef,
+  StatisticsTypeDef,
+  ExamModulesTypeDef
+];
 const Query = `
 	type Query {
 		${AuthTypeDefQuery}
 		${ExamTypeDefQuery}
+		${StatisticsTypeDefQuery}
+		${ExamModulesTypeDefQuery}
 	}
 `;
 const Mutation = `
 	type Mutation {
 		${AuthTypeDefMutation}
 		${ExamTypeDefMutation}
+		${StatisticsTypeDefMutation}
+		${ExamModulesTypeDefMutation}
 	}
 `;
 
