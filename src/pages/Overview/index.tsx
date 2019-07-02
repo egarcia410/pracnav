@@ -1,7 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 
-import CardModule from '../../shared/CardModule';
+import CardModule from '../../components/CardModule';
 import { GET_EXAM_MODULES } from '../../graphql/examModules';
 
 // import './Overview.scss';

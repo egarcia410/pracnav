@@ -1,0 +1,30 @@
+.button {
+  background-color: #6772e5;
+  border-radius: 40px;
+  color: white;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1.3rem;
+  padding: 15px 33px;
+  text-align: center;
+  box-shadow: 0 5px 10px 0 hsla(0, 0%, 0%, 0.2);
+  &:hover {
+    box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+    opacity: 0.8;
+  }
+}
+
+.button-prev {
+  background-color: white;
+  border: 3px solid #dddce3;
+  color: black;
+  padding: 12px 30px;
+}
+
+.button-next {
+  padding: 15px 40px;
+}
+
+.button-submit {
+  background-color: #3ecf8e;
+}

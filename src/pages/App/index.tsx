@@ -7,7 +7,7 @@ import { Router } from '@reach/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShip, faCogs } from '@fortawesome/pro-regular-svg-icons';
 
-import Header from '../../shared/Header';
+import Header from '../../components/Header';
 import Auth from '../Auth';
 import Overview from '../Overview';
 import Exam from '../Exam';

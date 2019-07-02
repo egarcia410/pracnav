@@ -6,9 +6,9 @@ import ReactTooltip from 'react-tooltip';
 import { withApollo } from 'react-apollo';
 import { toast } from 'react-toastify';
 
-import Card from '../../shared/Card';
-import Input from '../../shared/Input';
-import Button from '../../shared/Button';
+import Card from '../../components/Card';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 import useAuthForm from '../../hooks/useAuthForm';
 import { AUTH_SIGN_UP, AUTH_SIGN_IN } from '../../graphql/auth';
 import './Auth.scss';
