@@ -1,36 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
+import { ExamContext } from '../../context/ExamContext';
+
 import './ProgressBar.scss';
 
-interface IProgressBarProps {
-  questions: [any];
-  answeredIDs: [number];
-  currentQuestionID: number;
-  jumpToQuestion: (question_id: number) => void;
-}
-
-const ProgressBar: React.FC<IProgressBarProps> = ({
-  questions,
-  answeredIDs,
-  currentQuestionID,
-  jumpToQuestion
-}) => {
+const ProgressBar: React.FC = () => {
+  const {
+    exam: { questions },
+    answeredQuestions,
+    currentQuestionIndex,
+    navigateToQuestion
+  } = useContext(ExamContext);
   return (
     <div className="progressBar">
       {questions.map((question, index) => {
         const { question_id } = question;
-        let isAnswered = answeredIDs[index] !== undefined;
+        let isAnswered = answeredQuestions[index] !== undefined;
         let isFirstQuestion = index === 0;
         let isLastQuestion = index === questions.length - 1;
-        let isCurrentQuestion = currentQuestionID === question_id;
+        let isCurrentQuestion = currentQuestionIndex === index;
         return (
           <div
             key={question_id}
-            onClick={() => jumpToQuestion(index)}
+            onClick={() => navigateToQuestion(index)}
             className={`progress 
-            ${isAnswered ? 'progress-answered' : ''}
-            ${isFirstQuestion ? 'progress-first' : ''}
-            ${isLastQuestion ? 'progress-last' : ''}
-            ${isCurrentQuestion ? 'progress-current' : ''}
+              ${isAnswered ? 'progress-answered' : ''}
+              ${isFirstQuestion ? 'progress-first' : ''}
+              ${isLastQuestion ? 'progress-last' : ''}
+              ${isCurrentQuestion ? 'progress-current' : ''}
             `}
           />
         );

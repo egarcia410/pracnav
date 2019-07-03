@@ -5,7 +5,7 @@ import './Option.scss';
 interface IOption {
   option: any;
   isSelected: boolean;
-  onSelectOption: (option_id: number) => void;
+  onSelectOption: (optionId: number) => void;
 }
 
 const Option: React.FC<IOption> = ({
@@ -16,7 +16,7 @@ const Option: React.FC<IOption> = ({
   return (
     <div
       onClick={() => {
-        onSelectOption(option_id);
+        onSelectOption(+option_id);
       }}
       className={`option ${isSelected ? 'option-selected' : ''}`}
     >

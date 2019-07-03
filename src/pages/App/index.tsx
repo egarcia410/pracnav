@@ -11,6 +11,7 @@ import Header from '../../components/Header';
 import Auth from '../Auth';
 import Overview from '../Overview';
 import Exam from '../Exam';
+import { ExamProvider } from '../../context/ExamContext';
 import './App.scss';
 
 const client = new ApolloClient({
@@ -28,12 +29,14 @@ const right = <FontAwesomeIcon icon={faCogs} />;
 const App: React.FC = () => {
   return (
     <ApolloProvider client={client}>
-      <Header left={left} right={right} />
-      <Router>
-        <Overview path="/" />
-        <Auth path="/auth" />
-        <Exam path="/exam" />
-      </Router>
+      <ExamProvider>
+        <Header left={left} right={right} />
+        <Router>
+          <Overview path="/" />
+          <Auth path="/auth" />
+          <Exam path="/exam" />
+        </Router>
+      </ExamProvider>
     </ApolloProvider>
   );
 };

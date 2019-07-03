@@ -1,28 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ExamContext } from '../../context/ExamContext';
+
 import Option from '../Option';
 
-interface IOptions {
-  options: any[];
-  onSelectOption: (option_id: number) => void;
-  selectedOptions: number[];
-}
-
-const Options: React.FC<IOptions> = ({
-  options,
-  onSelectOption,
-  selectedOptions
-}) => {
+const Options: React.FC = () => {
+  const {
+    exam: { questions },
+    currentQuestionIndex,
+    answeredQuestions,
+    selectOption
+  } = useContext(ExamContext);
+  const { options } = questions[currentQuestionIndex];
   return (
     <div>
       {options.map((option: any) => {
         const { option_id } = option;
-        let isSelected = selectedOptions.includes(+option_id);
+        let isSelected = answeredQuestions[currentQuestionIndex] === +option_id;
         return (
           <Option
             key={option_id}
             option={option}
             isSelected={isSelected}
-            onSelectOption={onSelectOption}
+            onSelectOption={selectOption}
           />
         );
       })}

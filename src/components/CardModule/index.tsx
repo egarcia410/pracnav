@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { withApollo, Query } from 'react-apollo';
 import { navigate } from '@reach/router';
 
@@ -6,10 +6,12 @@ import Card from '../Card';
 import PieChart from '../PieChart';
 import { GET_STATISTICS } from '../../graphql/statistics';
 import { GENERATE_EXAM } from '../../graphql/exam';
+import { ExamContext } from '../../context/ExamContext';
 
 import './CardModule.scss';
 
 const CardModule: React.FC<any> = ({ client, ...rest }) => {
+  const examContext = useContext(ExamContext);
   const { module_id, module_full, total_questions } = rest;
   const generateExam = (module_id: number) => {
     client
@@ -21,6 +23,7 @@ const CardModule: React.FC<any> = ({ client, ...rest }) => {
       })
       .then(({ data: { GenerateExam } }: any) => {
         client.writeData({ data: { exam: GenerateExam } });
+        examContext.updateExam(GenerateExam);
         navigate('/exam');
       });
   };

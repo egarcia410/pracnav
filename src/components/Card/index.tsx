@@ -7,8 +7,6 @@ interface ICardProps {
   style?: React.CSSProperties;
 }
 
-type Card = (x: ICardProps) => React.ReactElement;
-
 const Card: React.FC<ICardProps> = ({ children, onClick, style }) => {
   return (
     <div className="card-root" onClick={onClick} style={style}>

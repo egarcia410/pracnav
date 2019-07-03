@@ -24,7 +24,7 @@ module.exports = {
       let qs = await knex('questions')
         .where({ module_id })
         .whereNotIn('question_id', answeredQuestions)
-        .limit(2)
+        .limit(5)
         .reduce(
           (acc, curr) => {
             return {

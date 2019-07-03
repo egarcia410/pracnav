@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ExamContext } from '../../context/ExamContext';
+
 import './Question.scss';
 
-interface IQuestionProps {
-  question: string;
-}
-
-const Question: React.FC<IQuestionProps> = ({ question }) => {
-  return <h1 className="question">{question}</h1>;
+const Question: React.FC = () => {
+  const {
+    currentQuestionIndex,
+    exam: { questions }
+  } = useContext(ExamContext);
+  return (
+    <h1 className="question">{questions[currentQuestionIndex].question}</h1>
+  );
 };
 
 export default Question;

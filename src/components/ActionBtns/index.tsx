@@ -1,33 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { navigate } from '@reach/router';
-
+import { ExamContext } from '../../context/ExamContext';
 import Button from './ActionBtn';
 import './ActionBtns.scss';
 
-interface IActionButtons {
-  // hasAnsweredAll: boolean;
-  // isFirstQuestion: boolean;
-  // isLastQuestion: boolean;
-  nextQuestion: () => void;
-  prevQuestion: () => void;
-  // submitExam: () => {};
-}
+const ActionBtns: React.FC = () => {
+  const {
+    currentQuestionIndex,
+    exam: { questions },
+    nextQuestion,
+    prevQuestion,
+    answeredQuestions
+  } = useContext(ExamContext);
+  let isFirstQuestion = currentQuestionIndex === 0;
+  let isLastQuestion = currentQuestionIndex === questions.length - 1;
 
-const ActionBtns: React.FC<IActionButtons> = ({
-  nextQuestion,
-  prevQuestion
-}) => {
-  function onSubmitExam() {
-    console.log('SUBMIT EXAM');
-    // navigate(`/summary`);
-    // TODO: Confirm submission
-    // TODO: Verify all questions answered
-    // TODO: Submit exam data
-    // submitExam();
-  }
-
-  let isFirstQuestion = false;
-  let isLastQuestion = true;
+  const onSubmitExam = () => {
+    let hasAnsweredAll = answeredQuestions.every(optionId => {
+      return optionId !== undefined;
+    });
+    if (hasAnsweredAll) {
+      console.log('navigate to summary page');
+    } else {
+      console.log('Modal - Unanswered questions, continue?');
+    }
+  };
   return (
     <div
       className={`actionButtons ${

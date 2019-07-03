@@ -1,21 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ExamContext } from '../../context/ExamContext';
+
 import './QuestionCount.scss';
 
-interface IQuestionCountProps {
-  currentQuestionIndex: number;
-  totalQuestions: number;
-}
-
-const QuestionCount: React.FC<IQuestionCountProps> = ({
-  currentQuestionIndex,
-  totalQuestions
-}) => {
+const QuestionCount: React.FC = () => {
+  const {
+    currentQuestionIndex,
+    exam: { questions }
+  } = useContext(ExamContext);
   return (
     <div className="question-count">
       <span className="question-current">
         Question {currentQuestionIndex + 1}
       </span>
-      <span>/{totalQuestions}</span>
+      <span>/{questions.length}</span>
     </div>
   );
 };
