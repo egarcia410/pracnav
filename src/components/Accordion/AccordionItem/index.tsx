@@ -4,7 +4,8 @@ import {
   faPlusCircle,
   faMinusCircle,
   faCheckCircle,
-  faTimesCircle
+  faTimesCircle,
+  faMinus
 } from '@fortawesome/pro-regular-svg-icons';
 import { IQuestion } from '../../../models/exam';
 
@@ -16,7 +17,7 @@ interface IAccordionItemProps {
   question: IQuestion;
 }
 
-const AccoridonItem: React.FC<IAccordionItemProps> = ({
+const AccordionItem: React.FC<IAccordionItemProps> = ({
   question,
   selectedOption,
   index
@@ -47,13 +48,38 @@ const AccoridonItem: React.FC<IAccordionItemProps> = ({
       </div>
       <div className="accordion-item__inner">
         <div className="accordion-item__content">
-          <ul>
+          <ul className="accordion-options">
             {question.options.map(option => {
+              let isCorrectOption =
+                option.option_id === question.correct_option_id;
+              let isUserSelectedOption = selectedOption === option.option_id;
+              let isUserSelectedOptionCorrect: null | boolean = null;
+              if (isUserSelectedOption) {
+                isUserSelectedOptionCorrect =
+                  selectedOption === question.correct_option_id;
+              }
+              const icon =
+                isUserSelectedOptionCorrect !== null
+                  ? isUserSelectedOptionCorrect
+                    ? faCheckCircle
+                    : faTimesCircle
+                  : isCorrectOption
+                  ? faCheckCircle
+                  : faMinus;
+
+              const optionResult =
+                icon === faCheckCircle
+                  ? 'correct'
+                  : icon === faTimesCircle
+                  ? 'incorrect'
+                  : '';
+
               return (
-                <li
-                  key={option.option_id}
-                  className="accordion-item__paragraph"
-                >
+                <li key={option.option_id} className="accordion-option">
+                  <FontAwesomeIcon
+                    className={`accordion-option__result ${optionResult}`}
+                    icon={icon}
+                  />
                   {option.option}
                 </li>
               );
@@ -66,4 +92,4 @@ const AccoridonItem: React.FC<IAccordionItemProps> = ({
   );
 };
 
-export default AccoridonItem;
+export default AccordionItem;
