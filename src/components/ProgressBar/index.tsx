@@ -6,7 +6,7 @@ import './ProgressBar.scss';
 const ProgressBar: React.FC = () => {
   const {
     exam: { questions },
-    answeredQuestions,
+    selectedOptions,
     currentQuestionIndex,
     navigateToQuestion
   } = useContext(ExamContext);
@@ -14,7 +14,7 @@ const ProgressBar: React.FC = () => {
     <div className="progressBar">
       {questions.map((question, index) => {
         const { question_id } = question;
-        let isAnswered = answeredQuestions[index] !== undefined;
+        let isAnswered = selectedOptions[index] !== undefined;
         let isFirstQuestion = index === 0;
         let isLastQuestion = index === questions.length - 1;
         let isCurrentQuestion = currentQuestionIndex === index;

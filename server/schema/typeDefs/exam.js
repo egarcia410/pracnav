@@ -1,14 +1,14 @@
 const ExamTypeDef = `
   type Option {
-    option_id: ID 
+    option_id: Int 
     option: String
   }
 
   type Question {
-    question_id: ID
+    question_id: Int
     question: String
     illustration: String
-    correct_option_id: ID
+    correct_option_id: Int
     options: [Option]
   }
 
@@ -20,7 +20,7 @@ const ExamTypeDef = `
 `;
 
 const ExamTypeDefQuery = `
-  GenerateExam(module_id: ID!): Exam
+  GenerateExam(module_id: Int!): Exam
 `;
 const ExamTypeDefMutation = `
 `;

@@ -1,0 +1,19 @@
+$cAccent: #3978ef;
+$cBlack: #121212;
+$cGray: #333;
+$cLightGray: rgba(#000, 0.1);
+
+.accordion-list {
+  list-style: none;
+  padding: 0;
+  background-color: #fff;
+  max-width: 40rem;
+  border-radius: 0.4rem;
+  overflow: hidden;
+
+  &__item {
+    & + & {
+      border-top: 1px solid $cLightGray;
+    }
+  }
+}

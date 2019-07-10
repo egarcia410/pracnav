@@ -1,9 +1,9 @@
 const ExamModulesTypeDef = `
     type ExamModules {
-        module_id: ID
+        module_id: Int
         module_short: String
         passing_score: Int
-        department_id: ID
+        department_id: Int
         total_questions: Int
         module_full: String
     }

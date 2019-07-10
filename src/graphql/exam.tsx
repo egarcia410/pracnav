@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const GENERATE_EXAM = gql`
-  query GenerateExam($module_id: ID!) {
+  query GenerateExam($module_id: Int!) {
     GenerateExam(module_id: $module_id) {
       passing_score
       total_questions

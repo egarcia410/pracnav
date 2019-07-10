@@ -11,17 +11,17 @@ import ActionBtns from '../../components/ActionBtns';
 import './Exam.scss';
 
 const Exam: React.FC<any> = () => {
-  const { hasExam } = useContext(ExamContext);
+  const { exam } = useContext(ExamContext);
 
   useEffect(() => {
-    if (!hasExam) {
+    if (!exam) {
       navigate('/');
     }
-  }, [hasExam]);
+  }, [exam]);
 
   return (
     <>
-      {hasExam ? (
+      {exam ? (
         <div className="exam-container">
           <ProgressBar />
           <QuestionCount />

@@ -11,6 +11,7 @@ import Header from '../../components/Header';
 import Auth from '../Auth';
 import Overview from '../Overview';
 import Exam from '../Exam';
+import Summary from '../Summary';
 import { ExamProvider } from '../../context/ExamContext';
 import './App.scss';
 
@@ -35,6 +36,7 @@ const App: React.FC = () => {
           <Overview path="/" />
           <Auth path="/auth" />
           <Exam path="/exam" />
+          <Summary path="/summary" />
         </Router>
       </ExamProvider>
     </ApolloProvider>

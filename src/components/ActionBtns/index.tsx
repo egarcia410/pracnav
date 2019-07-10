@@ -1,30 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { navigate } from '@reach/router';
 import { ExamContext } from '../../context/ExamContext';
 import Button from './ActionBtn';
 import './ActionBtns.scss';
 
 const ActionBtns: React.FC = () => {
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const {
     currentQuestionIndex,
     exam: { questions },
     nextQuestion,
-    prevQuestion,
-    answeredQuestions
+    prevQuestion
   } = useContext(ExamContext);
   let isFirstQuestion = currentQuestionIndex === 0;
   let isLastQuestion = currentQuestionIndex === questions.length - 1;
 
-  const onSubmitExam = () => {
-    let hasAnsweredAll = answeredQuestions.every(optionId => {
-      return optionId !== undefined;
-    });
-    if (hasAnsweredAll) {
-      console.log('navigate to summary page');
-    } else {
-      console.log('Modal - Unanswered questions, continue?');
+  useEffect(() => {
+    if (hasSubmitted) {
+      navigate('/summary');
     }
-  };
+  }, [hasSubmitted]);
+
   return (
     <div
       className={`actionButtons ${
@@ -62,7 +58,7 @@ const ActionBtns: React.FC = () => {
           <Button
             text="Submit"
             className="button-submit"
-            onClick={onSubmitExam}
+            onClick={() => setHasSubmitted(true)}
           />
         </>
       )}

@@ -7,7 +7,7 @@ const Options: React.FC = () => {
   const {
     exam: { questions },
     currentQuestionIndex,
-    answeredQuestions,
+    selectedOptions,
     selectOption
   } = useContext(ExamContext);
   const { options } = questions[currentQuestionIndex];
@@ -15,7 +15,7 @@ const Options: React.FC = () => {
     <div>
       {options.map((option: any) => {
         const { option_id } = option;
-        let isSelected = answeredQuestions[currentQuestionIndex] === +option_id;
+        let isSelected = selectedOptions[currentQuestionIndex] === +option_id;
         return (
           <Option
             key={option_id}

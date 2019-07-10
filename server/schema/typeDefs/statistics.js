@@ -7,7 +7,7 @@ const StatisticsTypeDef = `
 `;
 
 const StatisticsTypeDefQuery = `
-  GetModuleStatistics(module_id: ID!): Statistic
+  GetModuleStatistics(module_id: Int!): Statistic
 `;
 const StatisticsTypeDefMutation = `
 `;

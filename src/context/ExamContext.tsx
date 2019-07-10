@@ -1,47 +1,24 @@
 import React, { createContext, useReducer } from 'react';
+import { IExam } from '../models/exam';
 
-interface IExam {
-  passing_score: number;
-  total_questions: number;
-  questions: {
-    question_id: number;
-    question: string;
-    options: {
-      option_id: number;
-      option: string;
-    }[];
-  }[];
-}
-
-type IInitExamState = {
+interface IInitExamState {
   hasExam: boolean;
   exam: IExam;
   currentQuestionIndex: number;
   answeredQuestions: number[];
+  selectedOptions: number[];
   updateExam: (exam: any) => void;
   navigateToQuestion: (index: number) => void;
   nextQuestion: () => void;
   prevQuestion: () => void;
   selectOption: (optionId: number) => void;
-};
+}
 
 const initialState: IInitExamState = {
-  hasExam: false,
-  exam: {
-    passing_score: 0,
-    total_questions: 0,
-    questions: [
-      { question_id: 0, question: '', options: [{ option_id: 0, option: '' }] }
-    ]
-  },
-  currentQuestionIndex: 0,
   answeredQuestions: [],
-  updateExam: (exam: any) => {},
-  navigateToQuestion: (index: number) => {},
-  nextQuestion: () => {},
-  prevQuestion: () => {},
-  selectOption: (optionId: number) => {}
-};
+  currentQuestionIndex: 0,
+  selectedOptions: []
+} as any;
 
 const ExamContext = createContext(initialState);
 
@@ -77,11 +54,16 @@ const examReducer = (state: any, action: any) => {
         currentQuestionIndex: action.index
       };
     case 'SELECT_OPTION':
-      let answeredQuestions = state.answeredQuestions;
-      answeredQuestions[state.currentQuestionIndex] = action.optionId;
+      let answeredQuestions = [
+        ...state.answeredQuestions,
+        +state.exam.questions[state.currentQuestionIndex].question_id
+      ];
+      let selectedOptions = [...state.selectedOptions];
+      selectedOptions[state.currentQuestionIndex] = action.optionId;
       return {
         ...state,
-        answeredQuestions
+        answeredQuestions,
+        selectedOptions
       };
     default:
       return state;
@@ -136,6 +118,7 @@ const ExamProvider = (props: any) => {
         hasExam: state.hasExam,
         exam: state.exam,
         answeredQuestions: state.answeredQuestions,
+        selectedOptions: state.selectedOptions,
         currentQuestionIndex: state.currentQuestionIndex
       }}
       {...props}
