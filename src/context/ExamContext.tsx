@@ -7,6 +7,7 @@ interface IInitExamState {
   currentQuestionIndex: number;
   answeredQuestions: number[];
   selectedOptions: number[];
+  correctOptions: number[];
   updateExam: (exam: any) => void;
   navigateToQuestion: (index: number) => void;
   nextQuestion: () => void;

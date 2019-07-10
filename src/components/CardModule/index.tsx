@@ -12,7 +12,7 @@ import './CardModule.scss';
 
 const CardModule: React.FC<any> = ({ client, ...rest }) => {
   const examContext = useContext(ExamContext);
-  const { module_id, module_full, total_questions } = rest;
+  const { module_id, module_full } = rest;
   const generateExam = (module_id: number) => {
     client
       .query({
@@ -40,7 +40,8 @@ const CardModule: React.FC<any> = ({ client, ...rest }) => {
             const {
               averageScore,
               correctCount,
-              incorrectCount
+              incorrectCount,
+              totalQuestions
             } = GetModuleStatistics;
             return (
               <>
@@ -50,7 +51,7 @@ const CardModule: React.FC<any> = ({ client, ...rest }) => {
                 </div>
                 <div style={{ height: '200px', width: '100%' }}>
                   <PieChart
-                    totalQuestions={total_questions}
+                    totalQuestions={totalQuestions}
                     correctCount={correctCount}
                     incorrectCount={incorrectCount}
                   />

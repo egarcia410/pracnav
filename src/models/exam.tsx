@@ -11,28 +11,9 @@ export interface IQuestion {
 }
 
 export interface IExam {
+  module_id: number;
   passing_score: number;
   total_questions: number;
   questions: IQuestion[];
-}
-
-export class Option {
-  constructor({ option_id = 0, option = '' }) {}
-}
-
-export class Question {
-  constructor({
-    question_id = 0,
-    question = '',
-    correct_option_id = 0,
-    options = [new Option({})]
-  }) {}
-}
-
-export class Exam {
-  constructor({
-    passing_score = 0,
-    total_questions = 0,
-    questions = [new Question({})]
-  }) {}
+  correctOptions: number[];
 }

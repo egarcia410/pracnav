@@ -25,10 +25,14 @@ const getUser = async token => {
 const server = new ApolloServer({
   schema,
   context: async ({ req }) => {
-    const token = req.headers['x-access-token'];
-    const user = await getUser(token);
-    const { user_id, is_admin } = user;
-    return { knex, user_id, is_admin };
+    // const token = req.headers['x-access-token'];
+    // const user = await getUser(token);
+    let user = {
+      user_id: 27,
+      is_admin: false,
+      department_id: 1
+    };
+    return { knex, user };
   }
 });
 

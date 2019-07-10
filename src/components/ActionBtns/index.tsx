@@ -1,22 +1,36 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { withApollo } from 'react-apollo';
 import { navigate } from '@reach/router';
 import { ExamContext } from '../../context/ExamContext';
+import { ADD_ANSWERED_QUESTIONS } from '../../graphql/answeredQuestions';
 import Button from './ActionBtn';
 import './ActionBtns.scss';
 
-const ActionBtns: React.FC = () => {
+const ActionBtns: React.FC<any> = ({ client }) => {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const {
     currentQuestionIndex,
-    exam: { questions },
+    exam: { questions, module_id, correctOptions },
     nextQuestion,
-    prevQuestion
+    prevQuestion,
+    answeredQuestions,
+    selectedOptions
   } = useContext(ExamContext);
   let isFirstQuestion = currentQuestionIndex === 0;
   let isLastQuestion = currentQuestionIndex === questions.length - 1;
-
   useEffect(() => {
     if (hasSubmitted) {
+      if (answeredQuestions.length) {
+        client.mutate({
+          mutation: ADD_ANSWERED_QUESTIONS,
+          variables: {
+            module_id,
+            correctOptions,
+            selectedOptions,
+            answeredQuestions
+          }
+        });
+      }
       navigate('/summary');
     }
   }, [hasSubmitted]);
@@ -66,4 +80,4 @@ const ActionBtns: React.FC = () => {
   );
 };
 
-export default ActionBtns;
+export default withApollo(ActionBtns);

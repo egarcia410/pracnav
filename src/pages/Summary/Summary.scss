@@ -1,0 +1,30 @@
+.summary {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.summary-result {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 2rem 1rem 0 1rem;
+  &__content {
+    text-align: center;
+  }
+  &__icon {
+    color: #ffc400;
+    font-size: 3rem;
+  }
+  &__stats {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  &__stat {
+    margin: 0 1rem;
+    font-weight: 600;
+    font-size: 3rem;
+  }
+}

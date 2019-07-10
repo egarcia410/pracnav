@@ -16,7 +16,7 @@ const PieChart: React.FC<IPieChartProps> = ({
     {
       id: 'incorrect',
       label: 'incorrect',
-      value: correctCount
+      value: incorrectCount
     },
     {
       id: 'unanswered',

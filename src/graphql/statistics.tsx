@@ -6,6 +6,7 @@ export const GET_STATISTICS = gql`
       averageScore
       correctCount
       incorrectCount
+      totalQuestions
     }
   }
 `;

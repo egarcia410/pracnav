@@ -3,6 +3,7 @@ const StatisticsTypeDef = `
         averageScore: Int
         correctCount: Int
         incorrectCount: Int
+        totalQuestions: Int
     }
 `;
 

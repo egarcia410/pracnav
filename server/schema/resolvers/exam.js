@@ -2,19 +2,20 @@ const { AuthenticationError } = require('apollo-server');
 
 module.exports = {
   ExamQuery: {
-    GenerateExam: async (_, { module_id }, { knex, user_id }) => {
-      // if (!user_id) {
-      //   throw new AuthenticationError('Must be logged in');
-      // }
+    GenerateExam: async (_, { module_id }, { knex, user }) => {
+      if (!user) {
+        throw new AuthenticationError('Must be logged in');
+      }
+      const { user_id } = user;
       let examModule = await knex('modules')
         .where({ module_id })
-        .select(['passing_score', 'total_questions'])
+        .select(['passing_score', 'total_questions', 'module_id'])
         .reduce((acc, curr) => {
           return { ...acc, ...curr };
         }, {});
       let answeredQuestions = await knex('answered_questions')
         .where({
-          user_id: 27,
+          user_id,
           module_id
         })
         .select('question_id')
@@ -30,12 +31,13 @@ module.exports = {
             return {
               ...acc,
               questions: [...acc.questions, { ...curr }],
-              questionIDs: [...acc.questionIDs, curr.question_id]
+              questionIDs: [...acc.questionIDs, curr.question_id],
+              correctOptions: [...acc.correctOptions, curr.correct_option_id]
             };
           },
-          { questions: [], questionIDs: [] }
+          { questions: [], questionIDs: [], correctOptions: [] }
         );
-      const { questions, questionIDs } = qs;
+      const { questions, questionIDs, correctOptions } = qs;
       let optns = await knex('options')
         .whereIn('question_id', questionIDs)
         .reduce((acc, curr) => {
@@ -49,7 +51,11 @@ module.exports = {
         let options = optns[question.question_id];
         return { ...question, options };
       });
-      return { ...examModule, questions: questionsWithOptions };
+      return {
+        ...examModule,
+        questions: questionsWithOptions,
+        correctOptions
+      };
     }
   },
   ExamMutation: {}

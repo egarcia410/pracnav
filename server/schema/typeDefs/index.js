@@ -22,11 +22,18 @@ const {
   ExamModulesTypeDefMutation
 } = require('./examModules');
 
+const {
+  AnsweredQuestionsTypeDef,
+  AnsweredQuestionsTypeDefQuery,
+  AnsweredQuestionsTypeDefMutation
+} = require('./answeredQuestions');
+
 const TypeDefs = [
   AuthTypeDef,
   ExamTypeDef,
   StatisticsTypeDef,
-  ExamModulesTypeDef
+  ExamModulesTypeDef,
+  AnsweredQuestionsTypeDef
 ];
 const Query = `
 	type Query {
@@ -34,6 +41,7 @@ const Query = `
 		${ExamTypeDefQuery}
 		${StatisticsTypeDefQuery}
 		${ExamModulesTypeDefQuery}
+		${AnsweredQuestionsTypeDefQuery}
 	}
 `;
 const Mutation = `
@@ -42,6 +50,7 @@ const Mutation = `
 		${ExamTypeDefMutation}
 		${StatisticsTypeDefMutation}
 		${ExamModulesTypeDefMutation}
+		${AnsweredQuestionsTypeDefMutation}
 	}
 `;
 

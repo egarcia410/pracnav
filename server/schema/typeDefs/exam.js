@@ -13,9 +13,11 @@ const ExamTypeDef = `
   }
 
   type Exam {
+    module_id: Int
     passing_score: Int
     total_questions: Int
     questions: [Question]
+    correctOptions: [Int]
   }
 `;
 

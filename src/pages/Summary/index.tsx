@@ -2,7 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import { navigate } from '@reach/router';
 import { ExamContext } from '../../context/ExamContext';
 import Accordion from '../../components/Accordion';
-import Card from '../../components/Card';
+import SummaryResult from './SummaryResult';
+import './Summary.scss';
 
 interface ISummaryProps {
   path: string;
@@ -20,7 +21,8 @@ const Summary: React.FC<ISummaryProps> = () => {
   return (
     <>
       {exam ? (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div className="summary">
+          <SummaryResult selectedOptions={selectedOptions} exam={exam} />
           <Accordion
             selectedOptions={selectedOptions}
             questions={exam.questions}
