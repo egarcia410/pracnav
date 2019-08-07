@@ -12,11 +12,11 @@
   &:hover {
     cursor: pointer;
     opacity: 0.5;
+    background-color: #dddce3;
   }
 }
 
 .progress-answered {
-  // background-color: #b76ac4;
   background-color: #ffd1f1;
 }
 
@@ -30,5 +30,4 @@
 
 .progress-current {
   border-bottom: 4px solid #b76ac4;
-  // background-color: #ffd1f1;
 }

@@ -1,0 +1,14 @@
+.options-content {
+  display: flex;
+  flex-wrap: wrap;
+  .options {
+    flex-grow: 1;
+  }
+  .illustration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 1rem;
+  }
+}

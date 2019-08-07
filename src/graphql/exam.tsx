@@ -11,6 +11,7 @@ export const GENERATE_EXAM = gql`
         question_id
         question
         correct_option_id
+        illustration
         options {
           option_id
           option

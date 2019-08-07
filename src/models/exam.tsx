@@ -8,6 +8,7 @@ export interface IQuestion {
   question: string;
   options: IOption[];
   correct_option_id: number;
+  illustration: string;
 }
 
 export interface IExam {

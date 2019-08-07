@@ -85,7 +85,6 @@ const AccordionItem: React.FC<IAccordionItemProps> = ({
               );
             })}
           </ul>
-          {}
         </div>
       </div>
     </div>

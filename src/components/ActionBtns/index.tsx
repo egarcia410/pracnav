@@ -31,7 +31,7 @@ const ActionBtns: React.FC<any> = ({ client }) => {
           }
         });
       }
-      navigate('/summary');
+      navigate('/summary', { replace: true });
     }
   }, [hasSubmitted]);
 

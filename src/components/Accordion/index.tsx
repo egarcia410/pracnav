@@ -13,7 +13,7 @@ const Accordion: React.FC<IAccordionProps> = ({
   questions
 }) => {
   return (
-    <div>
+    <div className="accordion">
       <ul className="accordion-list" style={{ margin: '20px auto' }}>
         {questions.map((question, index) => {
           return (
