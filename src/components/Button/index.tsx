@@ -9,6 +9,7 @@ interface IButtonProps {
   fluid?: boolean;
   type?: any;
   onClick?: React.ReactEventHandler;
+  disabled?: boolean;
 }
 
 const Button: React.FC<IButtonProps> = ({
@@ -16,11 +17,13 @@ const Button: React.FC<IButtonProps> = ({
   className,
   variant,
   fluid,
+  disabled,
   ...rest
 }) => {
   let btnClass = classNames('btn', className, {
     'is-fluid': fluid === true,
-    'is-plain': variant === 'plain'
+    'is-plain': variant === 'plain',
+    'is-disabled': disabled === true
   });
 
   return (

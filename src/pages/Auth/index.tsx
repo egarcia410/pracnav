@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import ReactTooltip from 'react-tooltip';
 import { withApollo } from 'react-apollo';
 import { toast } from 'react-toastify';
+import { navigate } from '@reach/router';
 
 import Card from '../../components/Card';
 import Input from '../../components/Input';
@@ -48,12 +49,14 @@ const SignInOptions = {
 
 const Auth: React.FC<any> = ({ client }) => {
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { onSubmit, onChange, values, errors, reset } = useAuthForm(
     SignInOptions
   );
 
   const onHandleSubmit = (values: any) => {
     const { email, password } = values;
+    setIsLoading(true);
     if (isSignUp) {
       client
         .mutate({
@@ -65,12 +68,13 @@ const Auth: React.FC<any> = ({ client }) => {
         .then(({ data: { AuthSignUp } }: any) => {
           const { isSuccess, message, token } = AuthSignUp;
           if (isSuccess) {
-            // TODO: Navigate to main page
             localStorage.setItem('x-access-token', token);
             toast.success(message, {
               position: toast.POSITION.TOP_RIGHT
             });
+            navigate('/', { replace: true });
           } else {
+            setIsLoading(false);
             toast.error(message, {
               position: toast.POSITION.TOP_RIGHT
             });
@@ -88,12 +92,13 @@ const Auth: React.FC<any> = ({ client }) => {
         .then(({ data: { AuthSignIn } }: any) => {
           const { isSuccess, message, token } = AuthSignIn;
           if (isSuccess) {
-            // TODO: Navigate to main page
             localStorage.setItem('x-access-token', token);
             toast.success(message, {
               position: toast.POSITION.TOP_RIGHT
             });
+            navigate('/', { replace: true });
           } else {
+            setIsLoading(true);
             toast.error(message, {
               position: toast.POSITION.TOP_RIGHT
             });
@@ -168,7 +173,7 @@ const Auth: React.FC<any> = ({ client }) => {
             ) : null}
           </div>
           <div className="auth-footer">
-            <Button type="submit" fluid>
+            <Button type="submit" fluid disabled={isLoading}>
               <span style={{ marginRight: '5px' }}>
                 {isSignUp ? 'Sign Up' : 'Sign In'}
               </span>
