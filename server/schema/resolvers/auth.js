@@ -6,7 +6,19 @@ const { SignInSchema, SignUpSchema } = require('../../validationSchemas/auth');
 
 module.exports = {
   AuthQuery: {
-    AuthSignIn: async (_, { email, password }, { knex }) => {
+    AuthSignIn: async (_, { email, password }, { knex, user, token }) => {
+      console.log(user, 'USER');
+      if (user.user_id) {
+        return {
+          user_id: user.user_id,
+          email: user.email,
+          is_admin: user.is_admin,
+          department_id: user.department_id,
+          token,
+          isSuccess: true,
+          message: 'Welcome Back!'
+        };
+      }
       return SignInSchema.validate(
         { email, password },
         { abortEarly: false }
@@ -23,7 +35,8 @@ module.exports = {
                   {
                     email,
                     is_admin,
-                    user_id
+                    user_id,
+                    department_id: 1
                   },
                   config.PRIVATE_KEY,
                   { expiresIn: '1h' }
@@ -33,6 +46,7 @@ module.exports = {
                     user_id,
                     email,
                     is_admin,
+                    department_id: 1,
                     token,
                     isSuccess: true,
                     message: 'Welcome Back!'
@@ -101,7 +115,8 @@ module.exports = {
                         {
                           email,
                           is_admin,
-                          user_id
+                          user_id,
+                          department_id: 1
                         },
                         config.PRIVATE_KEY,
                         { expiresIn: '1h' }
@@ -112,6 +127,7 @@ module.exports = {
                           email,
                           is_admin,
                           token,
+                          department_id: 1,
                           isSuccess: true,
                           message: 'Account created successfully'
                         });

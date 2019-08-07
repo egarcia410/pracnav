@@ -2,19 +2,21 @@ module.exports = {
   StatisticsQuery: {
     GetModuleStatistics: async (_, { module_id }, { knex, user }) => {
       const { user_id } = user;
-      // TODO: Gather exam results
+      console.log(user, 'STATS');
       let avgScore = await knex('exams')
         .where({ user_id, module_id })
         .avg('score');
       let incorrectCount = await knex('answered_questions')
         .count('is_correct')
         .where({
-          is_correct: false
+          is_correct: false,
+          user_id
         });
       let correctCount = await knex('answered_questions')
         .count('is_correct')
         .where({
-          is_correct: true
+          is_correct: true,
+          user_id
         });
       let totalQuestions = await knex('questions')
         .count('question')

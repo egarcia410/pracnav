@@ -3,6 +3,7 @@ const AuthTypeDef = `
 		isSuccess: Boolean!
 		message: String!
 		is_admin: Boolean
+		department_id: Int
 		user_id: Int
 		email: String
 		token: String

@@ -4,8 +4,6 @@ import { Query } from 'react-apollo';
 import CardModule from '../../components/CardModule';
 import { GET_EXAM_MODULES } from '../../graphql/examModules';
 
-// import './Overview.scss';
-
 const Overview: React.FC<any> = () => {
   return (
     <>
