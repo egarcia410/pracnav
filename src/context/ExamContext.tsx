@@ -55,10 +55,10 @@ const examReducer = (state: any, action: any) => {
         currentQuestionIndex: action.index
       };
     case 'SELECT_OPTION':
-      let answeredQuestions = [
-        ...state.answeredQuestions,
-        +state.exam.questions[state.currentQuestionIndex].question_id
-      ];
+      let answeredQuestions = [...state.answeredQuestions];
+      answeredQuestions[state.currentQuestionIndex] = +state.exam.questions[
+        state.currentQuestionIndex
+      ].question_id;
       let selectedOptions = [...state.selectedOptions];
       selectedOptions[state.currentQuestionIndex] = action.optionId;
       return {

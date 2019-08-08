@@ -38,15 +38,26 @@ const ActionBtns: React.FC<any> = ({ client }) => {
   return (
     <div
       className={`actionButtons ${
-        isFirstQuestion ? 'actionButtons-centered' : ''
+        isFirstQuestion && answeredQuestions.length !== questions.length
+          ? 'actionButtons-centered'
+          : ''
       }`}
     >
       {isFirstQuestion && (
-        <Button
-          text="Next"
-          className="button-next"
-          onClick={() => nextQuestion()}
-        />
+        <>
+          <Button
+            text="Next"
+            className="button-next"
+            onClick={() => nextQuestion()}
+          />
+          {answeredQuestions.length === questions.length ? (
+            <Button
+              text="Submit"
+              className="button-submit"
+              onClick={() => setHasSubmitted(true)}
+            />
+          ) : null}
+        </>
       )}
       {!isFirstQuestion && !isLastQuestion && (
         <>
@@ -55,6 +66,13 @@ const ActionBtns: React.FC<any> = ({ client }) => {
             className="button-prev"
             onClick={() => prevQuestion()}
           />
+          {answeredQuestions.length === questions.length ? (
+            <Button
+              text="Submit"
+              className="button-submit"
+              onClick={() => setHasSubmitted(true)}
+            />
+          ) : null}
           <Button
             text="Next"
             className="button-next"
