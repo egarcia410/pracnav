@@ -3,7 +3,7 @@ import { navigate } from '@reach/router';
 
 import { ExamContext } from '../../context/ExamContext';
 import ProgressBar from '../../components/ProgressBar';
-import QuestionCount from '../../components/QuestionCount';
+import ExamTracker from '../../components/ExamTracker';
 import Question from '../../components/Question';
 import Options from '../../components/Options';
 import ActionBtns from '../../components/ActionBtns';
@@ -24,7 +24,7 @@ const Exam: React.FC<any> = () => {
       {exam ? (
         <div className="exam-container">
           <ProgressBar />
-          <QuestionCount />
+          <ExamTracker />
           <Question />
           <Options />
           <ActionBtns />
