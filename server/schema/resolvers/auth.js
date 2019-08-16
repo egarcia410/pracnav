@@ -6,19 +6,7 @@ const { SignInSchema, SignUpSchema } = require('../../validationSchemas/auth');
 
 module.exports = {
   AuthQuery: {
-    AuthSignIn: async (_, { email, password }, { knex, user, token }) => {
-      console.log(user, 'USER');
-      if (user.user_id) {
-        return {
-          user_id: user.user_id,
-          email: user.email,
-          is_admin: user.is_admin,
-          department_id: user.department_id,
-          token,
-          isSuccess: true,
-          message: 'Welcome Back!'
-        };
-      }
+    AuthSignIn: async (_, { email, password }, { knex }) => {
       return SignInSchema.validate(
         { email, password },
         { abortEarly: false }

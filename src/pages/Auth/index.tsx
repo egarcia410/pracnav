@@ -109,7 +109,7 @@ const Auth: React.FC<any> = ({ client }) => {
 
   const onToggleAuth = (e: any) => {
     e.preventDefault();
-    let options = isSignUp ? SignInOptions : SignUpOptions;
+    let options: any = isSignUp ? SignInOptions : SignUpOptions;
     reset(options);
     setIsSignUp(bool => !bool);
   };

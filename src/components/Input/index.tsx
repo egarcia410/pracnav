@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes } from '@fortawesome/pro-regular-svg-icons';
 import classNames from 'classnames';
@@ -10,7 +10,7 @@ interface IInputProps {
   classes?: { root: string; field: string; icon: string };
   isValid?: null | boolean;
   name?: string;
-  onChange?: () => {};
+  onChange?: (e: FormEvent<HTMLInputElement>) => void;
   value: string;
 }
 

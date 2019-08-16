@@ -1,23 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import * as yup from 'yup';
 
-interface IErrors {
-  [key: string]: string;
-}
-
-interface IReturn {
-  onSubmit: (e: React.FormEvent<HTMLInputElement>, fn: any) => void;
+interface IAuthFormReturn {
+  onSubmit: (e: React.FormEvent<HTMLFormElement>, fn: any) => void;
   onChange: (e: React.FormEvent<HTMLInputElement>) => void;
   values: { [key: string]: string };
-  errors: { isvalid: boolean; message: string };
+  errors: { [key: string]: { isValid: boolean; message: string } };
+  isSubmitted: boolean;
+  reset: (e: React.FormEvent<HTMLInputElement>) => void;
+  setOptions: React.Dispatch<
+    React.SetStateAction<{
+      validationSchema: yup.ObjectSchema<any>;
+      initialValues: {
+        [key: string]: string;
+      };
+    }>
+  >;
 }
 
-interface IProps {
+interface IAuthFormProps {
   validationSchema: yup.ObjectSchema<yup.Shape<object, any>>;
   initialValues: { [key: string]: string };
 }
 
-const useAuthForm: any = ({ validationSchema, initialValues }: IProps): any => {
+type AuthForm = ({
+  validationSchema,
+  initialValues
+}: IAuthFormProps) => IAuthFormReturn;
+
+const useAuthForm: AuthForm = ({
+  validationSchema,
+  initialValues
+}): IAuthFormReturn => {
   const [options, setOptions] = useState({ validationSchema, initialValues });
   const [values, setValues] = useState<any>(options.initialValues);
   const [errors, setErrors] = useState<any>({});
@@ -31,7 +45,7 @@ const useAuthForm: any = ({ validationSchema, initialValues }: IProps): any => {
     setErrors({});
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLInputElement>, fn: any) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>, fn: any) => {
     e.preventDefault();
     setIsSubmitted(true);
     options.validationSchema

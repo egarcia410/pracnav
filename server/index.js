@@ -1,4 +1,4 @@
-const { ApolloServer, AuthenticationError } = require('apollo-server');
+const { ApolloServer } = require('apollo-server');
 const jwt = require('jsonwebtoken');
 
 const schema = require('./schema');
@@ -10,16 +10,10 @@ const getUser = async token => {
     try {
       return await jwt.verify(token, PRIVATE_KEY);
     } catch (error) {
-      return {
-        user_id: null,
-        is_admin: null
-      };
+      return null;
     }
   }
-  return {
-    user_id: null,
-    is_admin: null
-  };
+  return null;
 };
 
 const server = new ApolloServer({

@@ -2,6 +2,9 @@ module.exports = {
   AnsweredQuestionsQuery: {},
   AnsweredQuestionsMutation: {
     AddAnsweredQuestions: async (_, { input }, { knex, user }) => {
+      if (!user) {
+        throw new AuthenticationError('Must be logged in');
+      }
       const { user_id } = user;
       const {
         module_id,

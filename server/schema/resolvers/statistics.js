@@ -1,8 +1,10 @@
 module.exports = {
   StatisticsQuery: {
     GetModuleStatistics: async (_, { module_id }, { knex, user }) => {
+      if (!user) {
+        throw new AuthenticationError('Must be logged in');
+      }
       const { user_id } = user;
-      console.log(user, 'STATS');
       let avgScore = await knex('exams')
         .where({ user_id, module_id })
         .avg('score');
