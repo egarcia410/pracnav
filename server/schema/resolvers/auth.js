@@ -6,6 +6,12 @@ const { SignInSchema, SignUpSchema } = require('../../validationSchemas/auth');
 
 module.exports = {
   AuthQuery: {
+    IsAuthenticated: async (_, __, { knex, user }) => {
+      if (user) {
+        return { ...user, isLoggedIn: true };
+      }
+      return null;
+    },
     AuthSignIn: async (_, { email, password }, { knex }) => {
       return SignInSchema.validate(
         { email, password },

@@ -3,14 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShip, faCogs } from '@fortawesome/pro-regular-svg-icons';
 import './Header.scss';
 
-interface IHeaderProps {
-  left?: React.ReactElement;
-  right?: React.ReactElement;
-}
-
-type Header = (x: IHeaderProps) => React.ReactElement;
-
-const Header: Header = ({ left, right }) => {
+const Header: React.FC = () => {
   return (
     <nav className="hdr">
       <div className="hdr-item left">

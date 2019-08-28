@@ -13,7 +13,7 @@
 
 # misc
 .npmrc
-/server/config.js
+config.js
 /src/assets
 .DS_Store
 .env.local

@@ -21,7 +21,7 @@ const Exam: React.FC<any> = () => {
 
   return (
     <>
-      {exam ? (
+      {exam && (
         <div className="exam-container">
           <ProgressBar />
           <ExamTracker />
@@ -29,7 +29,7 @@ const Exam: React.FC<any> = () => {
           <Options />
           <ActionBtns />
         </div>
-      ) : null}
+      )}
     </>
   );
 };

@@ -10,17 +10,15 @@ interface ISummaryProps {
 }
 
 const Summary: React.FC<ISummaryProps> = () => {
-  const { selectedOptions, exam } = useContext(ExamContext);
+  const { selectedOptions, exam, hasSubmitted } = useContext(ExamContext);
 
   useEffect(() => {
-    if (!exam) {
-      navigate('/');
-    }
-  }, [exam]);
+    if (!hasSubmitted) navigate('/');
+  }, [hasSubmitted]);
 
   return (
     <>
-      {exam ? (
+      {exam && hasSubmitted && (
         <div className="summary">
           <SummaryResult selectedOptions={selectedOptions} exam={exam} />
           <Accordion
@@ -28,7 +26,7 @@ const Summary: React.FC<ISummaryProps> = () => {
             questions={exam.questions}
           />
         </div>
-      ) : null}
+      )}
     </>
   );
 };

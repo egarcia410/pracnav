@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignIn } from '@fortawesome/pro-regular-svg-icons';
 import * as yup from 'yup';
 import ReactTooltip from 'react-tooltip';
-import { withApollo } from 'react-apollo';
+import { useApolloClient } from '@apollo/react-hooks';
 import { toast } from 'react-toastify';
 import { navigate } from '@reach/router';
 
@@ -47,7 +47,8 @@ const SignInOptions = {
   }
 };
 
-const Auth: React.FC<any> = ({ client }) => {
+const Auth: React.FC<any> = () => {
+  const client = useApolloClient();
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { onSubmit, onChange, values, errors, reset } = useAuthForm(
@@ -191,4 +192,4 @@ const Auth: React.FC<any> = ({ client }) => {
   );
 };
 
-export default withApollo(Auth);
+export default Auth;

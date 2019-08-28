@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { withApollo, Query } from 'react-apollo';
 import { navigate } from '@reach/router';
+import { useQuery, useApolloClient } from '@apollo/react-hooks';
 
 import Card from '../Card';
 import PieChart from '../PieChart';
@@ -10,9 +10,13 @@ import { ExamContext } from '../../context/ExamContext';
 
 import './CardModule.scss';
 
-const CardModule: React.FC<any> = ({ client, ...rest }) => {
+const CardModule: React.FC<any> = ({ module_id, module_full }) => {
+  const client = useApolloClient();
+  const { loading, error, data } = useQuery(GET_STATISTICS, {
+    variables: { module_id }
+  });
+  const { GetModuleStatistics } = data;
   const examContext = useContext(ExamContext);
-  const { module_id, module_full } = rest;
   const generateExam = (module_id: number) => {
     client
       .query({
@@ -22,47 +26,35 @@ const CardModule: React.FC<any> = ({ client, ...rest }) => {
         }
       })
       .then(({ data: { GenerateExam } }: any) => {
-        client.writeData({ data: { exam: GenerateExam } });
         examContext.updateExam(GenerateExam);
         navigate('/exam');
       });
   };
+  const { averageScore, correctCount, incorrectCount, totalQuestions } = data;
   return (
     <div className="module-wrapper">
       <Card
         onClick={() => generateExam(module_id)}
         style={{ cursor: 'pointer' }}
       >
-        <Query query={GET_STATISTICS} variables={{ module_id }}>
-          {({ loading, error, data: { GetModuleStatistics } }: any) => {
-            if (loading) return 'Loading...';
-            if (error) return `Error! ${error.message}`;
-            const {
-              averageScore,
-              correctCount,
-              incorrectCount,
-              totalQuestions
-            } = GetModuleStatistics;
-            return (
-              <>
-                <div className="module-header">
-                  <div>{module_full}</div>
-                  <div>Avg. Score: {averageScore}%</div>
-                </div>
-                <div style={{ height: '200px', width: '100%' }}>
-                  <PieChart
-                    totalQuestions={totalQuestions}
-                    correctCount={correctCount}
-                    incorrectCount={incorrectCount}
-                  />
-                </div>
-              </>
-            );
-          }}
-        </Query>
+        <>
+          {loading && 'Loading...'}
+          {error && `Error! ${error.message}`}
+          {GetModuleStatistics && (
+            <>
+              <div className="module-header">
+                <div>{module_full}</div>
+                <div>Avg. Score: {averageScore}%</div>
+              </div>
+              <div style={{ height: '200px', width: '100%' }}>
+                <PieChart {...GetModuleStatistics} />
+              </div>
+            </>
+          )}
+        </>
       </Card>
     </div>
   );
 };
 
-export default withApollo(CardModule);
+export default CardModule;

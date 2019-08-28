@@ -1,4 +1,11 @@
 const AuthTypeDef = `
+	type IsAuthenticated {
+		user_id: Int
+		is_admin: Boolean
+		department_id: Int
+		isLoggedIn: Boolean
+	}
+
 	type AuthNotification {
 		isSuccess: Boolean!
 		message: String!
@@ -17,6 +24,7 @@ const AuthTypeDef = `
 	}
 `;
 const AuthTypeDefQuery = `
+	IsAuthenticated: IsAuthenticated
 	AuthSignIn(email: String!, password: String!): AuthNotification
 `;
 const AuthTypeDefMutation = `

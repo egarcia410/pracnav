@@ -1,39 +1,40 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { withApollo } from 'react-apollo';
+import React, { useContext, useEffect } from 'react';
+import { useApolloClient } from '@apollo/react-hooks';
 import { navigate } from '@reach/router';
 import { ExamContext } from '../../context/ExamContext';
 import { ADD_ANSWERED_QUESTIONS } from '../../graphql/answeredQuestions';
 import Button from './ActionBtn';
 import './ActionBtns.scss';
 
-const ActionBtns: React.FC<any> = ({ client }) => {
-  const [hasSubmitted, setHasSubmitted] = useState(false);
+const ActionBtns: React.FC = () => {
+  const client = useApolloClient();
   const {
     currentQuestionIndex,
     exam: { questions, module_id, correctOptions },
     nextQuestion,
     prevQuestion,
     answeredQuestions,
-    selectedOptions
+    selectedOptions,
+    submitExam
   } = useContext(ExamContext);
-  let isFirstQuestion = currentQuestionIndex === 0;
-  let isLastQuestion = currentQuestionIndex === questions.length - 1;
-  useEffect(() => {
-    if (hasSubmitted) {
-      if (answeredQuestions.length) {
-        client.mutate({
-          mutation: ADD_ANSWERED_QUESTIONS,
-          variables: {
-            module_id,
-            correctOptions,
-            selectedOptions,
-            answeredQuestions
-          }
-        });
-      }
-      navigate('/summary', { replace: true });
+  const isFirstQuestion = currentQuestionIndex === 0;
+  const isLastQuestion = currentQuestionIndex === questions.length - 1;
+
+  const onSubmitExam = () => {
+    if (answeredQuestions.length) {
+      client.mutate({
+        mutation: ADD_ANSWERED_QUESTIONS,
+        variables: {
+          module_id,
+          correctOptions,
+          selectedOptions,
+          answeredQuestions
+        }
+      });
+      submitExam();
     }
-  }, [hasSubmitted]);
+    navigate('/summary', { replace: true });
+  };
 
   return (
     <div
@@ -54,7 +55,7 @@ const ActionBtns: React.FC<any> = ({ client }) => {
             <Button
               text="Submit"
               className="button-submit"
-              onClick={() => setHasSubmitted(true)}
+              onClick={() => onSubmitExam()}
             />
           ) : null}
         </>
@@ -70,7 +71,7 @@ const ActionBtns: React.FC<any> = ({ client }) => {
             <Button
               text="Submit"
               className="button-submit"
-              onClick={() => setHasSubmitted(true)}
+              onClick={() => onSubmitExam()}
             />
           ) : null}
           <Button
@@ -90,7 +91,7 @@ const ActionBtns: React.FC<any> = ({ client }) => {
           <Button
             text="Submit"
             className="button-submit"
-            onClick={() => setHasSubmitted(true)}
+            onClick={() => onSubmitExam()}
           />
         </>
       )}
@@ -98,4 +99,4 @@ const ActionBtns: React.FC<any> = ({ client }) => {
   );
 };
 
-export default withApollo(ActionBtns);
+export default ActionBtns;

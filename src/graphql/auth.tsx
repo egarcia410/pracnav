@@ -1,5 +1,16 @@
 import gql from 'graphql-tag';
 
+export const IS_AUTHENTICATED = gql`
+  query IsAuthenticated {
+    IsAuthenticated {
+      user_id
+      is_admin
+      department_id
+      isLoggedIn
+    }
+  }
+`;
+
 export const AUTH_SIGN_UP = gql`
   mutation AuthSignUp(
     $email: String!

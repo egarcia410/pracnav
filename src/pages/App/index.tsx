@@ -1,6 +1,6 @@
 import React from 'react';
 import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from '@apollo/react-hooks';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Router } from '@reach/router';
@@ -26,8 +26,8 @@ const App: React.FC = () => {
     <ApolloProvider client={client}>
       <ExamProvider>
         <Router>
-          <Overview path="/" />
           <Auth path="/auth" />
+          <Overview path="/" />
           <Exam path="/exam" />
           <Summary path="/summary" />
         </Router>
