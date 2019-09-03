@@ -6,7 +6,7 @@ import Card from '../Card';
 import PieChart from '../PieChart';
 import { GET_STATISTICS } from '../../graphql/statistics';
 import { GENERATE_EXAM } from '../../graphql/exam';
-import { ExamContext } from '../../context/ExamContext';
+import { MasterContext } from '../../context/MasterContext';
 
 import './CardModule.scss';
 
@@ -16,7 +16,9 @@ const CardModule: React.FC<any> = ({ module_id, module_full }) => {
     variables: { module_id }
   });
   const { GetModuleStatistics } = data;
-  const examContext = useContext(ExamContext);
+  const {
+    ExamContext: { updateExam }
+  } = useContext(MasterContext);
   const generateExam = (module_id: number) => {
     client
       .query({
@@ -26,11 +28,11 @@ const CardModule: React.FC<any> = ({ module_id, module_full }) => {
         }
       })
       .then(({ data: { GenerateExam } }: any) => {
-        examContext.updateExam(GenerateExam);
+        updateExam(GenerateExam);
         navigate('/exam');
       });
   };
-  const { averageScore, correctCount, incorrectCount, totalQuestions } = data;
+  const { averageScore } = data;
   return (
     <div className="module-wrapper">
       <Card
@@ -44,7 +46,7 @@ const CardModule: React.FC<any> = ({ module_id, module_full }) => {
             <>
               <div className="module-header">
                 <div>{module_full}</div>
-                <div>Avg. Score: {averageScore}%</div>
+                <div>Avg. Score: {averageScore || 0}%</div>
               </div>
               <div style={{ height: '200px', width: '100%' }}>
                 <PieChart {...GetModuleStatistics} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignIn } from '@fortawesome/pro-regular-svg-icons';
 import * as yup from 'yup';
@@ -12,6 +12,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import useAuthForm from '../../hooks/useAuthForm';
 import { AUTH_SIGN_UP, AUTH_SIGN_IN } from '../../graphql/auth';
+import { MasterContext } from '../../context/MasterContext';
 import './Auth.scss';
 
 const SignUpOptions = {
@@ -48,6 +49,9 @@ const SignInOptions = {
 };
 
 const Auth: React.FC<any> = () => {
+  const {
+    UserContext: { updateUser }
+  } = useContext(MasterContext);
   const client = useApolloClient();
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -67,9 +71,17 @@ const Auth: React.FC<any> = () => {
           }
         })
         .then(({ data: { AuthSignUp } }: any) => {
-          const { isSuccess, message, token } = AuthSignUp;
+          const {
+            isSuccess,
+            message,
+            token,
+            user_id,
+            is_admin,
+            department_id
+          } = AuthSignUp;
           if (isSuccess) {
             localStorage.setItem('x-access-token', token);
+            updateUser({ user_id, is_admin, department_id, isLoggedIn: true });
             toast.success(message, {
               position: toast.POSITION.TOP_RIGHT
             });
@@ -91,9 +103,17 @@ const Auth: React.FC<any> = () => {
           }
         })
         .then(({ data: { AuthSignIn } }: any) => {
-          const { isSuccess, message, token } = AuthSignIn;
+          const {
+            isSuccess,
+            message,
+            token,
+            user_id,
+            is_admin,
+            department_id
+          } = AuthSignIn;
           if (isSuccess) {
             localStorage.setItem('x-access-token', token);
+            updateUser({ user_id, is_admin, department_id, isLoggedIn: true });
             toast.success(message, {
               position: toast.POSITION.TOP_RIGHT
             });

@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import { useReducer } from 'react';
 import { IExam } from '../models/exam';
 
 interface IInitExamState {
@@ -16,14 +16,12 @@ interface IInitExamState {
   submitExam: () => void;
 }
 
-const initialState: IInitExamState = {
+const initialExamState: IInitExamState = {
   answeredQuestions: [],
   currentQuestionIndex: 0,
   selectedOptions: [],
   hasSubmitted: false
 } as any;
-
-const ExamContext = createContext(initialState);
 
 const examReducer = (state: IInitExamState, action: any) => {
   switch (action.type) {
@@ -33,7 +31,7 @@ const examReducer = (state: IInitExamState, action: any) => {
         exam: action.exam
       };
     case 'RESET_EXAM':
-      return initialState;
+      return initialExamState;
     case 'NEXT_QUESTION':
       return {
         ...state,
@@ -74,8 +72,8 @@ const examReducer = (state: IInitExamState, action: any) => {
   }
 };
 
-const ExamProvider = (props: any) => {
-  const [state, dispatch] = useReducer(examReducer, initialState);
+const ExamValues = () => {
+  const [state, dispatch] = useReducer(examReducer, initialExamState);
   const updateExam = (exam: any) => {
     dispatch({
       type: 'UPDATE_EXAM',
@@ -115,25 +113,16 @@ const ExamProvider = (props: any) => {
     });
   };
 
-  return (
-    <ExamContext.Provider
-      value={{
-        updateExam,
-        resetExam,
-        nextQuestion,
-        prevQuestion,
-        navigateToQuestion,
-        selectOption,
-        submitExam,
-        exam: state.exam,
-        answeredQuestions: state.answeredQuestions,
-        selectedOptions: state.selectedOptions,
-        currentQuestionIndex: state.currentQuestionIndex,
-        hasSubmitted: state.hasSubmitted
-      }}
-      {...props}
-    />
-  );
+  return {
+    ...state,
+    updateExam,
+    resetExam,
+    nextQuestion,
+    prevQuestion,
+    navigateToQuestion,
+    selectOption,
+    submitExam
+  };
 };
 
-export { ExamContext, ExamProvider };
+export { ExamValues, initialExamState };

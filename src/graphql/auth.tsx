@@ -32,6 +32,7 @@ export const AUTH_SIGN_UP = gql`
       email
       is_admin
       token
+      department_id
     }
   }
 `;
@@ -45,6 +46,7 @@ export const AUTH_SIGN_IN = gql`
       email
       is_admin
       token
+      department_id
     }
   }
 `;

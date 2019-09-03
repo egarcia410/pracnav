@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { navigate } from '@reach/router';
 
-import { ExamContext } from '../../context/ExamContext';
+import { MasterContext } from '../../context/MasterContext';
 import ProgressBar from '../../components/ProgressBar';
 import ExamTracker from '../../components/ExamTracker';
 import Question from '../../components/Question';
@@ -11,7 +11,9 @@ import ActionBtns from '../../components/ActionBtns';
 import './Exam.scss';
 
 const Exam: React.FC<any> = () => {
-  const { exam } = useContext(ExamContext);
+  const {
+    ExamContext: { exam }
+  } = useContext(MasterContext);
 
   useEffect(() => {
     if (!exam) {

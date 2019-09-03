@@ -1,15 +1,17 @@
 import React, { useContext } from 'react';
-import { ExamContext } from '../../context/ExamContext';
+import { MasterContext } from '../../context/MasterContext';
 
 import './ProgressBar.scss';
 
 const ProgressBar: React.FC = () => {
   const {
-    exam: { questions },
-    selectedOptions,
-    currentQuestionIndex,
-    navigateToQuestion
-  } = useContext(ExamContext);
+    ExamContext: {
+      exam: { questions },
+      selectedOptions,
+      currentQuestionIndex,
+      navigateToQuestion
+    }
+  } = useContext(MasterContext);
   return (
     <div className="progressBar">
       {questions.map((question, index) => {

@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
-import { ExamContext } from '../../context/ExamContext';
+import { MasterContext } from '../../context/MasterContext';
 
 import './QuestionCount.scss';
 
 const QuestionCount: React.FC = () => {
   const {
-    currentQuestionIndex,
-    exam: { questions }
-  } = useContext(ExamContext);
+    ExamContext: {
+      currentQuestionIndex,
+      exam: { questions }
+    }
+  } = useContext(MasterContext);
   return (
     <div className="question-count">
       <span className="question-current">

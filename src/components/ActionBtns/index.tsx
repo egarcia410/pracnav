@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
 import { navigate } from '@reach/router';
-import { ExamContext } from '../../context/ExamContext';
+import { MasterContext } from '../../context/MasterContext';
 import { ADD_ANSWERED_QUESTIONS } from '../../graphql/answeredQuestions';
 import Button from './ActionBtn';
 import './ActionBtns.scss';
@@ -9,14 +9,16 @@ import './ActionBtns.scss';
 const ActionBtns: React.FC = () => {
   const client = useApolloClient();
   const {
-    currentQuestionIndex,
-    exam: { questions, module_id, correctOptions },
-    nextQuestion,
-    prevQuestion,
-    answeredQuestions,
-    selectedOptions,
-    submitExam
-  } = useContext(ExamContext);
+    ExamContext: {
+      currentQuestionIndex,
+      exam: { questions, module_id, correctOptions },
+      nextQuestion,
+      prevQuestion,
+      answeredQuestions,
+      selectedOptions,
+      submitExam
+    }
+  } = useContext(MasterContext);
   const isFirstQuestion = currentQuestionIndex === 0;
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
 

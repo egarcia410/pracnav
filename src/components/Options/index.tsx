@@ -1,16 +1,18 @@
 import React, { useContext } from 'react';
-import { ExamContext } from '../../context/ExamContext';
+import { MasterContext } from '../../context/MasterContext';
 
 import Option from '../Option';
 import './Options.scss';
 
 const Options: React.FC = () => {
   const {
-    exam: { questions },
-    currentQuestionIndex,
-    selectedOptions,
-    selectOption
-  } = useContext(ExamContext);
+    ExamContext: {
+      exam: { questions },
+      currentQuestionIndex,
+      selectedOptions,
+      selectOption
+    }
+  } = useContext(MasterContext);
   const { options, illustration } = questions[currentQuestionIndex];
   return (
     <div className="options-content">
