@@ -1,4 +1,5 @@
 import { useReducer } from 'react';
+import { navigate } from '@reach/router';
 
 interface IUser {
   user_id: number;
@@ -32,6 +33,7 @@ const userReducer = (state: IUserState, action: any) => {
       };
     case 'SIGN_OUT':
       localStorage.removeItem('x-access-token');
+      navigate('/auth', { replace: true });
       return initialUserState;
     default:
       return state;

@@ -6,6 +6,15 @@
   height: 3rem;
   color: #617691;
   box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+  &__icon-ship {
+    height: 2rem;
+    width: 2rem !important;
+  }
+  &__icon-signout {
+    cursor: pointer;
+    height: 1.5rem;
+    width: 1.5rem !important;
+  }
 }
 
 .hdr-item {

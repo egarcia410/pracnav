@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/pro-regular-svg-icons';
 
 import useInterval from '../../hooks/useInterval';
-
-// import './ElapsedTime.scss';
 
 const ElapsedTime: React.FC = () => {
   const [time, setTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
@@ -25,7 +23,7 @@ const ElapsedTime: React.FC = () => {
         style={{ height: '1.5rem', width: '1.5rem' }}
       />
       <span>
-        {`0${time.hours}`}:
+        {` 0${time.hours}`}:
         {time.minutes < 10 ? `0${time.minutes}` : time.minutes}:
         {Math.floor((time.seconds % 3600) % 60) < 10
           ? `0${time.seconds % 60}`

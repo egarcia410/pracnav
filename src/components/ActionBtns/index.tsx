@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
 import { navigate } from '@reach/router';
 import { MasterContext } from '../../context/MasterContext';
@@ -11,7 +11,7 @@ const ActionBtns: React.FC = () => {
   const {
     ExamContext: {
       currentQuestionIndex,
-      exam: { questions, module_id, correctOptions, passing_score },
+      exam: { questions, module_id, correctOptions },
       nextQuestion,
       prevQuestion,
       answeredQuestions,
