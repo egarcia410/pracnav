@@ -25,6 +25,7 @@ const ExamTypeDefQuery = `
   GenerateExam(module_id: Int!): Exam
 `;
 const ExamTypeDefMutation = `
+  AddCompletedExamInfo(module_id: Int!, score: Int!): Boolean
 `;
 
 module.exports = {

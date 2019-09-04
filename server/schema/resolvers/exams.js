@@ -1,7 +1,7 @@
 const { AuthenticationError } = require('apollo-server');
 
 module.exports = {
-  ExamQuery: {
+  ExamsQuery: {
     GenerateExam: async (_, { module_id }, { knex, user }) => {
       if (!user) {
         throw new AuthenticationError('Must be logged in');
@@ -58,5 +58,25 @@ module.exports = {
       };
     }
   },
-  ExamMutation: {}
+  ExamsMutation: {
+    AddCompletedExamInfo: async (_, { module_id, score }, { knex, user }) => {
+      if (!user) {
+        return null;
+      }
+      const { user_id } = user;
+      return await knex('exams')
+        .insert({
+          user_id,
+          module_id,
+          score,
+          date_submitted: new Date()
+        })
+        .then(() => {
+          return true;
+        })
+        .catch(() => {
+          return false;
+        });
+    }
+  }
 };

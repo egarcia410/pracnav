@@ -3,7 +3,8 @@ import { navigate } from '@reach/router';
 import { useQuery } from '@apollo/react-hooks';
 
 import CardModule from '../../components/CardModule';
-import { GET_EXAM_MODULES, IExamModule } from '../../graphql/examModules';
+import { GET_EXAM_MODULES } from '../../graphql/examModules';
+import { IExamModule } from '../../models/exam';
 import Header from '../../components/Header';
 import { IS_AUTHENTICATED } from '../../graphql/auth';
 import { MasterContext } from '../../context/MasterContext';

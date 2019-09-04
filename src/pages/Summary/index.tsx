@@ -11,7 +11,7 @@ interface ISummaryProps {
 
 const Summary: React.FC<ISummaryProps> = () => {
   const {
-    ExamContext: { selectedOptions, exam, hasSubmitted }
+    ExamContext: { hasSubmitted }
   } = useContext(MasterContext);
 
   useEffect(() => {
@@ -20,13 +20,10 @@ const Summary: React.FC<ISummaryProps> = () => {
 
   return (
     <>
-      {exam && hasSubmitted && (
+      {hasSubmitted && (
         <div className="summary">
-          <SummaryResult selectedOptions={selectedOptions} exam={exam} />
-          <Accordion
-            selectedOptions={selectedOptions}
-            questions={exam.questions}
-          />
+          <SummaryResult />
+          <Accordion />
         </div>
       )}
     </>

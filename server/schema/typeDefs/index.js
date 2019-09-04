@@ -8,7 +8,7 @@ const {
   ExamTypeDef,
   ExamTypeDefQuery,
   ExamTypeDefMutation
-} = require('./exam');
+} = require('./exams');
 
 const {
   StatisticsTypeDef,

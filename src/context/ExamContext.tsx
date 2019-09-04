@@ -1,6 +1,11 @@
 import { useReducer } from 'react';
 import { IExam } from '../models/exam';
 
+interface IExamResult {
+  numCorrect: number;
+  score: number;
+}
+
 interface IInitExamState {
   exam: IExam;
   currentQuestionIndex: number;
@@ -8,12 +13,14 @@ interface IInitExamState {
   selectedOptions: number[];
   correctOptions: number[];
   hasSubmitted: boolean;
+  numCorrect: number;
+  score: number;
   updateExam: (exam: any) => void;
   navigateToQuestion: (index: number) => void;
   nextQuestion: () => void;
   prevQuestion: () => void;
   selectOption: (optionId: number) => void;
-  submitExam: () => void;
+  submitExam: ({ numCorrect, score }: IExamResult) => void;
 }
 
 const initialExamState: IInitExamState = {
@@ -66,7 +73,7 @@ const examReducer = (state: IInitExamState, action: any) => {
         selectedOptions
       };
     case 'SUBMIT_EXAM':
-      return { ...state, hasSubmitted: true };
+      return { ...state, hasSubmitted: true, ...action.payload };
     default:
       return state;
   }
@@ -107,9 +114,10 @@ const ExamValues = () => {
       optionId
     });
   };
-  const submitExam = () => {
+  const submitExam = (payload: IExamResult) => {
     dispatch({
-      type: 'SUBMIT_EXAM'
+      type: 'SUBMIT_EXAM',
+      payload
     });
   };
 

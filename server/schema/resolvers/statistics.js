@@ -24,7 +24,7 @@ module.exports = {
         .count('question')
         .where({ module_id });
       return {
-        averageScore: avgScore[0].avg === null ? 0 : avgScore[0].avg,
+        averageScore: avgScore[0].avg || 0,
         correctCount: correctCount[0].count,
         incorrectCount: incorrectCount[0].count,
         totalQuestions: totalQuestions[0].count

@@ -20,3 +20,9 @@ export const GENERATE_EXAM = gql`
     }
   }
 `;
+
+export const ADD_COMPLETED_EXAM_INFO = gql`
+  mutation AddCompletedExamInfo($module_id: Int!, $score: Int!) {
+    AddCompletedExamInfo(module_id: $module_id, score: $score)
+  }
+`;

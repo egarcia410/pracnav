@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
 import { navigate } from '@reach/router';
 import { MasterContext } from '../../context/MasterContext';
-import { ADD_ANSWERED_QUESTIONS } from '../../graphql/answeredQuestions';
+import { ADD_ANSWERED_QUESTIONS, ADD_COMPLETED_EXAM_INFO } from '../../graphql';
 import Button from './ActionBtn';
 import './ActionBtns.scss';
 
@@ -11,7 +11,7 @@ const ActionBtns: React.FC = () => {
   const {
     ExamContext: {
       currentQuestionIndex,
-      exam: { questions, module_id, correctOptions },
+      exam: { questions, module_id, correctOptions, passing_score },
       nextQuestion,
       prevQuestion,
       answeredQuestions,
@@ -33,7 +33,24 @@ const ActionBtns: React.FC = () => {
           answeredQuestions
         }
       });
-      submitExam();
+
+      let numCorrect = 0;
+      let score = 0;
+      questions.forEach((question, index) => {
+        if (selectedOptions[index] === question.correct_option_id) {
+          numCorrect++;
+        }
+      });
+      score = Math.floor((numCorrect / questions.length) * 100);
+
+      client.mutate({
+        mutation: ADD_COMPLETED_EXAM_INFO,
+        variables: {
+          module_id,
+          score
+        }
+      });
+      submitExam({ numCorrect, score });
     }
     navigate('/summary', { replace: true });
   };

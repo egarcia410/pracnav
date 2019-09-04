@@ -5,7 +5,7 @@ import { useQuery, useApolloClient } from '@apollo/react-hooks';
 import Card from '../Card';
 import PieChart from '../PieChart';
 import { GET_STATISTICS } from '../../graphql/statistics';
-import { GENERATE_EXAM } from '../../graphql/exam';
+import { GENERATE_EXAM } from '../../graphql/exams';
 import { MasterContext } from '../../context/MasterContext';
 
 import './CardModule.scss';
@@ -32,7 +32,6 @@ const CardModule: React.FC<any> = ({ module_id, module_full }) => {
         navigate('/exam');
       });
   };
-  const { averageScore } = data;
   return (
     <div className="module-wrapper">
       <Card
@@ -46,7 +45,7 @@ const CardModule: React.FC<any> = ({ module_id, module_full }) => {
             <>
               <div className="module-header">
                 <div>{module_full}</div>
-                <div>Avg. Score: {averageScore || 0}%</div>
+                <div>Avg. Score: {GetModuleStatistics.averageScore || 0}%</div>
               </div>
               <div style={{ height: '200px', width: '100%' }}>
                 <PieChart {...GetModuleStatistics} />

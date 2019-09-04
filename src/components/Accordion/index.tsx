@@ -1,17 +1,16 @@
-import React from 'react';
-import { IQuestion } from '../../models/exam';
+import React, { useContext } from 'react';
 import AccordionItem from './AccordionItem';
+import { MasterContext } from '../../context/MasterContext';
 import './Accordion.scss';
 
-interface IAccordionProps {
-  selectedOptions: number[];
-  questions: IQuestion[];
-}
+const Accordion: React.FC = () => {
+  const {
+    ExamContext: {
+      selectedOptions,
+      exam: { questions }
+    }
+  } = useContext(MasterContext);
 
-const Accordion: React.FC<IAccordionProps> = ({
-  selectedOptions,
-  questions
-}) => {
   return (
     <div className="accordion">
       <ul className="accordion-list" style={{ margin: '20px auto' }}>

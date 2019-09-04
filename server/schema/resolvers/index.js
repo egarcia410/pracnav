@@ -1,5 +1,5 @@
 const { AuthQuery, AuthMutation } = require('./auth');
-const { ExamQuery, ExamMutation } = require('./exam');
+const { ExamsQuery, ExamsMutation } = require('./exams');
 const { StatisticsQuery, StatisticsMutation } = require('./statistics');
 const { ExamModulesQuery, ExamModulesMutation } = require('./examModules');
 const {
@@ -10,14 +10,14 @@ const {
 module.exports = {
   Query: {
     ...AuthQuery,
-    ...ExamQuery,
+    ...ExamsQuery,
     ...StatisticsQuery,
     ...ExamModulesQuery,
     ...AnsweredQuestionsQuery
   },
   Mutation: {
     ...AuthMutation,
-    ...ExamMutation,
+    ...ExamsMutation,
     ...StatisticsMutation,
     ...ExamModulesMutation,
     ...AnsweredQuestionsMutation
